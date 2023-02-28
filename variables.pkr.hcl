@@ -22,6 +22,12 @@ variable "token" {
     sensitive   = true
 }
 
+variable "server_mode" {
+    type = string
+    default = "PLAIN"
+    sensitive   = false
+}
+
 variable "controller_image" {
     type = string
     default = "rookout/controller"
@@ -42,12 +48,6 @@ variable "controller_port" {
     sensitive   = false
 }
 
-variable "controller_server_mode" {
-    type = string
-    default = "PLAIN"
-    sensitive   = false
-}
-
 variable "dop_image" {
     type = string
     default = "rookout/data-on-prem"
@@ -65,17 +65,5 @@ variable "dop_version" {
 variable "dop_port" {
     default = 8080
     description = "Data-On-Prem port"
-    sensitive   = false
-}
-
-variable "dop_server_mode" {
-    type = string
-    default = "PLAIN"
-    sensitive   = false
-}
-
-variable "dop_in_memory_db" {
-    type = string
-    default = "false"
     sensitive   = false
 }

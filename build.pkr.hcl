@@ -1,23 +1,25 @@
 locals {   
     controller_image = "${var.controller_image}:${var.controller_version}"
-    controller_server_mode = "ROOKOUT_CONTROLLER_SERVER_MODE=${var.controller_server_mode}"
-    controller_token = "ROOKOUT_TOKEN=${var.token}"
+    controller_server_mode = "ROOKOUT_CONTROLLER_SERVER_MODE=$${SERVER_MODE}"
+    controller_token = "ROOKOUT_TOKEN=$${ROOKOUT_TOKEN}"
+    controller_port = "$${ROOKOUT_CONTROLLER_PORT}:${var.controller_port}"
 
     dop_image = "${var.dop_image}:${var.dop_version}"
-    dop_server_mode = "ROOKOUT_DOP_SERVER_MODE=${var.dop_server_mode}"
-    dop_token = "ROOKOUT_DOP_LOGGING_TOKEN=${var.token}"
-    dop_additional_envs = "-e ROOKOUT_DOP_PORT=${var.dop_port} -e ROOKOUT_DOP_IN_MEMORY_DB=${var.dop_in_memory_db}"
+    dop_server_mode = "ROOKOUT_DOP_SERVER_MODE=$${SERVER_MODE}"
+    dop_token = "ROOKOUT_DOP_LOGGING_TOKEN=$${ROOKOUT_TOKEN}"
+    dop_port = "$${ROOKOUT_DOP_PORT}:${var.dop_port}"
 }
 
 // Temporary Null builder just for testing
 source "null" "ssh" {
     communicator = "ssh"
-    ssh_host = "54.242.197.16"
-    ssh_username = "ec2-user"
+    ssh_host = "18.206.86.183"
+    ssh_username = "ubuntu"
     ssh_agent_auth = true
     ssh_keypair_name = "rookout-sdk-1w"
     ssh_certificate_file = "~/Downloads/rookout-sdk-1ws.pem"
 }
+
 
 build {
 
@@ -28,17 +30,27 @@ build {
     ]
 
     provisioner "shell-local" {
-        inline = ["echo Hello from ${source.type}.${source.name} ${var.name}"]
+        inline = [
+            "echo =======================================================",
+            "echo Hello from ${source.type}.${source.name} ${var.name}",
+            "echo =======================================================",
+            ]
     }
 
-    # Install docker (not tested yet)
-    # provisioner "shell" {
-    #     script = "scripts/install-docker-${var.linux_distro}"
-    # }
+    provisioner "shell" {
+        script = "scripts/install-docker-${var.linux_distro}.sh"
+    }
 
-    # provisioner "shell" {
-    #     script = "scripts/post-install-docker.sh"
-    # }
+    provisioner "file" {
+        content = templatefile(("templates/config.tpl"),
+        {
+            token = var.token
+            server_mode = var.server_mode
+            controller_port = var.controller_port
+            dop_port = var.dop_port
+        })
+        destination = "/tmp/config"
+    }
 
     provisioner "file" {
         content = templatefile(("templates/systemd-unit.tpl"),
@@ -46,10 +58,9 @@ build {
             description = "Rookout Controller Service"
             name = "rookout-controller"
             image = local.controller_image
-            port = var.controller_port
+            port = local.controller_port
             token = local.controller_token
             server_mode = local.controller_server_mode
-            additional_envs = ""
         })
         destination = "/tmp/rookout-controller.service"
     }
@@ -60,29 +71,22 @@ build {
             description = "Rookout DOP Service"
             name = "rookout-data-onprem"
             image = local.dop_image
-            port = var.dop_port
+            port = local.dop_port
             token = local.dop_token
             server_mode = local.dop_server_mode
-            additional_envs = local.dop_additional_envs
         })
         destination = "/tmp/rookout-data-on-prem.service"
     }
 
     provisioner "shell" {
-        inline = [
-            "sudo mv /tmp/*.service /lib/systemd/system/",
-            "sudo systemctl daemon-reload",
-            "sudo systemctl start rookout-data-on-prem.service",
-            "sudo systemctl start rookout-controller.service",
-            "sudo systemctl enable rookout-data-on-prem.service",
-            "sudo systemctl enable rookout-controller.service",
-        ]
+        script = "scripts/rookout-startup.sh"
     }
 
     post-processor "shell-local" {
-        inline = ["echo Good Buy from ${source.type}.${source.name}"]
+        inline = [
+            "echo =======================================================",
+            "echo Good Buy from ${source.type}.${source.name} ${var.name}",
+            "echo ======================================================="
+            ]
     }
 }
-
-
-
