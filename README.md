@@ -2,7 +2,7 @@
 
 Quick start from pre builded OVA image:
 
-1. Download OVA image
+1. Download OVA image https://drive.google.com/file/d/1Q45ifyDR1EbKlDVjO1Y5GnFegfskufhE/view?usp=share_link
 2. Import VM from image
 3. SSH to yor VM using username: `admin` and password: `packerubuntu`
 4. Change `ROOKOUT_TOKEN` value in `/etc/rookout/config` file
