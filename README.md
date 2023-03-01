@@ -1,6 +1,6 @@
 # rookout-packer
 
-Quick start from pre builded OVA image:
+## Quick start from pre builded OVA image:
 
 1. Download OVA image https://drive.google.com/file/d/1Q45ifyDR1EbKlDVjO1Y5GnFegfskufhE/view?usp=share_link
 2. Import VM from image
