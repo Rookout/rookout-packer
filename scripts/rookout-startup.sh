@@ -10,8 +10,8 @@ sudo mv /tmp/*.service /lib/systemd/system/
 
 sudo systemctl daemon-reload
 
-sudo systemctl start rookout-data-on-prem.service
 sudo systemctl start rookout-controller.service
-
-sudo systemctl enable rookout-data-on-prem.service
 sudo systemctl enable rookout-controller.service
+
+sudo systemctl start rookout-data-on-prem.service
+sudo systemctl enable rookout-data-on-prem.service

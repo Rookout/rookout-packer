@@ -3,67 +3,73 @@
 // For those variables that you don't provide a default for, you must
 // set them from the command line, a var-file, or the environment.
 variable "name" {
-    type        = string
-    default     = "rookout-hybrid"
-    description = "Build name"
-    sensitive   = false
+  type        = string
+  default     = "rookout"
+  description = "Build name"
+  sensitive   = false
 }
 
 variable "linux_distro" {
-    type        = string
-    default     = "ubuntu"
-    description = "linux distro rhel/centos/ubuntu"
-    sensitive   = false
+  type        = string
+  default     = "ubuntu"
+  description = "linux distro rhel/centos/ubuntu"
+  sensitive   = false
 }
 
 variable "token" {
-    type        = string
-    description = "Rookout Token"
-    sensitive   = true
+  type        = string
+  description = "Rookout Token"
+  sensitive   = true
 }
 
 variable "server_mode" {
-    type = string
-    default = "PLAIN"
-    sensitive   = false
+  type      = string
+  default   = "PLAIN"
+  sensitive = false
 }
 
 variable "controller_image" {
-    type = string
-    default = "rookout/controller"
-    description = "Controller Image"
-    sensitive   = false
+  type        = string
+  default     = "rookout/controller"
+  description = "Controller Image"
+  sensitive   = false
 }
 
 variable "controller_version" {
-    type = string
-    default = "latest"
-    description = "Controller Image Tag"
-    sensitive   = false
+  type        = string
+  default     = "latest"
+  description = "Controller Image Tag"
+  sensitive   = false
 }
 
 variable "controller_port" {
-    default = 7488
-    description = "Controller port"
-    sensitive   = false
+  default     = 7488
+  description = "Controller port"
+  sensitive   = false
 }
 
 variable "dop_image" {
-    type = string
-    default = "rookout/data-on-prem"
-    description = "Data-On-Prem Image"
-    sensitive   = false
+  type        = string
+  default     = "rookout/data-on-prem"
+  description = "Data-On-Prem Image"
+  sensitive   = false
 }
 
 variable "dop_version" {
-    type = string
-    default = "latest"
-    description = "Data-On-Prem Image Tag"
-    sensitive   = false
+  type        = string
+  default     = "latest"
+  description = "Data-On-Prem Image Tag"
+  sensitive   = false
 }
 
 variable "dop_port" {
-    default = 8080
-    description = "Data-On-Prem port"
-    sensitive   = false
+  default     = 8080
+  description = "Data-On-Prem port"
+  sensitive   = false
+}
+
+variable "ubuntu_version" {
+  default     = "20.04.5"
+  description = "Ubuntu Version"
+  sensitive   = false
 }
