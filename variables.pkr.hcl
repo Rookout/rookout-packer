@@ -73,3 +73,4 @@ variable "ubuntu_version" {
   description = "Ubuntu Version"
   sensitive   = false
 }
+
