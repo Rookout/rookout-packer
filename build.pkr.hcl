@@ -15,8 +15,7 @@ build {
   name = var.name
 
   sources = [
-    # "sources.vmware-iso.ubuntu",
-    "sources.null.ssh"
+    "sources.vmware-iso.ubuntu",
   ]
 
   provisioner "shell-local" {
@@ -27,9 +26,9 @@ build {
     ]
   }
 
-  # provisioner "shell" {
-  #   script = "scripts/install-docker-${var.linux_distro}.sh"
-  # }
+  provisioner "shell" {
+    script = "scripts/install-docker-${var.linux_distro}.sh"
+  }
 
   provisioner "file" {
     content = templatefile(("templates/config.tpl"),
@@ -86,7 +85,7 @@ build {
   provisioner "shell" {
     inline = [
       "sudo mkdir -p ${local.controller_cert_path}",
-      "sudo mkdir -p ${local.dop_cert_path}"
+      "sudo mkdir -p ${local.dop_cert_path}",
     ]
   }
 

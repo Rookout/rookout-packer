@@ -38,9 +38,9 @@ source "vmware-iso" "ubuntu" {
 // null source for quickly provisioners by simple sshing to remote machine, not used in build sources
 source "null" "ssh" {
   communicator         = "ssh"
-  ssh_host             = "44.211.238.191"
+  ssh_host             = "1"
   ssh_username         = "ubuntu"
   ssh_agent_auth       = true
-  ssh_keypair_name     = "rookout-sdk-1ws"
-  ssh_certificate_file = "/Users/alexeygutkin/Downloads/rookout-sdk-1ws.pem"
+  ssh_keypair_name     = ""
+  ssh_certificate_file = ""
 }
