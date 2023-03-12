@@ -3,12 +3,6 @@
 ## Quick start from pre builded OVA image:
 
 1. Download OVA image and validate checksum
-```
-wget https://rookout-fibi-vm-solution.s3.amazonaws.com/2023-03-08-1e28fd2b/rookout-ubuntu-2023-03-08-1e28fd2b.ova
-wget https://rookout-fibi-vm-solution.s3.amazonaws.com/2023-03-08-1e28fd2b/SHA256SUM
-sha256sum -c SHA256SUM
-
-```
 2. Import VM from image
 3. SSH to yor VM using username: `admin` and password: `packerubuntu`
 4. Change `ROOKOUT_TOKEN` value in `/etc/rookout/config` file
@@ -51,11 +45,6 @@ Controller:
 1. Set value of `ROOKOUT_CONTROLLER_SERVER_MODE` to `TLS` in controller config (`/etc/rookout/config/data-onprem/env`) file
 2. Place certificate and key to `/etc/rookout/config/controller/certs` directory as `tls.crt` and `tls.key`
 3. Restart `rookout-controller` service 
-
-## Default Inbound Ports
-
-- 7488 : Controller Port, must be open for inbound and outbound connections
-- 8080 : Data-OnPrem Port, must be open for inbound and outbound connections
 
 ## Build image with packer
 
