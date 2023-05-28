@@ -8,6 +8,11 @@ locals {
   dop_token      = "ROOKOUT_DOP_LOGGING_TOKEN=$${ROOKOUT_TOKEN}"
   dop_cert_mount = "$${ROOKOUT_DOP_CERT_PATH}:/var/rookout/"
   dop_cert_path  = "/etc/rookout/data-onprem/certs"
+
+  uuid       = substr(uuidv4(), 0, 8)
+  date       = legacy_isotime("2006-01-02")
+  build_name = "${var.name}-${var.linux_distro}-${local.date}-${local.uuid}"
+
 }
 
 build {
@@ -15,7 +20,8 @@ build {
   name = var.name
 
   sources = [
-    "sources.vmware-iso.ubuntu",
+    # "sources.vmware-iso.ubuntu",
+    "sources.amazon-ebs.this",
   ]
 
   provisioner "shell-local" {

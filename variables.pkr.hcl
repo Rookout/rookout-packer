@@ -74,3 +74,32 @@ variable "ubuntu_version" {
   sensitive   = false
 }
 
+variable "aws_instance_type" {
+  default = "c5.large"
+  description = "AWS instance type"
+}
+
+variable "aws_source_ami" {
+  default = "ubuntu-jammy-22.04-amd64-server"
+  description = "Source AMI filter"
+}
+
+variable "aws_region" {
+  default = "us-east-2"
+}
+
+variable "aws_access_key" {
+  type = string
+  sensitive   = true
+  //default = "hardcoded_key"
+}
+
+variable "aws_secret_key" {
+  type = string
+  sensitive   = true
+  // default = "hardcoded_secret_key"
+}
+
+variable "aws_vpc_id" {
+  type = string
+}
