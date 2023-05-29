@@ -10,8 +10,6 @@ data "amazon-ami" "source-ami" {
 }
 
 source "amazon-ebs" "this" {
-  access_key    = var.aws_access_key
-  secret_key    = var.aws_secret_key
   ami_name      = local.build_name
   instance_type = var.aws_instance_type
   vpc_id        = var.aws_vpc_id
@@ -21,7 +19,3 @@ source "amazon-ebs" "this" {
   ssh_interface = "public_ip"
   communicator  = "ssh"
 }
-
-
-# ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-20230516
-# ami-024e6efaf93d85776
