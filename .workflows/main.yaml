@@ -18,8 +18,8 @@
       - name: repo_name
         value: "{{ workflow.parameters.repo_name }}"
       - name: aws_vpc_id
-        value: vpc-7a300a02
+        value: "vpc-7a300a02"
       - name: aws_region
-        value: us-east-1
+        value: "us-east-1"
   dependencies:
     - git-fetch
