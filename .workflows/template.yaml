@@ -32,6 +32,8 @@
             key: aws_access_key
       - name: AWS_DEFAULT_REGION
         value: "{{inputs.parameters.aws_region}}"
+      - name: ROOKOUT_TOKEN
+        value: DUMMYTOKEN
     command: [ sh ]
     source: |
       set +ex
@@ -41,4 +43,5 @@
       packer build \
         -var 'aws_vpc_id={{inputs.parameters.aws_vpc_id}}' \
         -var 'aws_region={{inputs.parameters.aws_region}}' \
+        -var 'token=${ROOKOUT_TOKEN}'
         .
