@@ -91,15 +91,23 @@ variable "aws_region" {
 variable "aws_access_key" {
   type = string
   sensitive   = true
-  //default = "hardcoded_key"
+  default = "{{env `AWS_ACCESS_KEY_ID`}}"
 }
 
 variable "aws_secret_key" {
   type = string
   sensitive   = true
-  // default = "hardcoded_secret_key"
+  default = "{{env `AWS_SECRET_ACCESS_KEY`}}"
 }
 
 variable "aws_vpc_id" {
   type = string
+}
+
+variable "sources" {
+  type = list(string)
+  default = [
+//    "sources.vmware-iso.ubuntu",
+    "sources.amazon-ebs.this",
+  ]
 }

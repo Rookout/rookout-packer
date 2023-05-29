@@ -19,10 +19,7 @@ build {
 
   name = var.name
 
-  sources = [
-    # "sources.vmware-iso.ubuntu",
-    "sources.amazon-ebs.this",
-  ]
+  sources = var.sources
 
   provisioner "shell-local" {
     inline = [

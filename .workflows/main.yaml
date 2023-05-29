@@ -1,0 +1,25 @@
+- name: git-fetch
+  templateRef:
+    name: git-toolkit
+    template: git-fetch
+    clusterScope: true
+  arguments:
+    parameters:
+      - name: branch
+        value: "{{ workflow.parameters.branch }}"
+      - name: repo_name
+        value: "{{ workflow.parameters.repo_name }}"
+- name: packer-build
+  template: packer-build
+  arguments:
+    parameters:
+      - name: branch
+        value: "{{ workflow.parameters.branch }}"
+      - name: repo_name
+        value: "{{ workflow.parameters.repo_name }}"
+      - name: aws_vpc_id
+        value: vpc-7a300a02
+      - name: aws_region
+        value: us-east-1
+  dependencies:
+    - git-fetch

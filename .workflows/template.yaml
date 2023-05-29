@@ -1,0 +1,44 @@
+- name: packer-build
+  inputs:
+    parameters:
+      - name: repo_name
+      - name: branch
+      - name: aws_vpc_id
+      - name: aws_region
+    artifacts:
+      - name: git
+        path: /{{inputs.parameters.repo_name}}/{{inputs.parameters.branch}}
+        gcs:
+          key: "{{inputs.parameters.repo_name}}/{{inputs.parameters.branch}}/git"
+  script:
+    image: hashicorp/packer:1:8
+    resources:
+      requests:
+        memory: 1Gi
+        cpu: 1
+      limits:
+        memory: 1Gi
+    workingDir: /{{inputs.parameters.repo_name}}/{{inputs.parameters.branch}}/
+    env:
+      - name: AWS_SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: PACKER_AWS_SECRET
+            key: aws_secret_access_key
+      - name: AWS_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: PACKER_AWS_SECRET
+            key: aws_access_key_id
+      - name: AWS_DEFAULT_REGION
+        value: {{inputs.parameters.aws_region}}
+    command: [ sh ]
+    source: |
+      set +ex
+      
+      packer init
+      
+      packer build \
+        -var 'aws_vpc_id={{inputs.parameters.aws_vpc_id}}' \
+        -var 'aws_region={{inputs.parameters.aws_region}}' \
+        .
