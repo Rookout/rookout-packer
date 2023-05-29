@@ -11,7 +11,7 @@
         gcs:
           key: "{{inputs.parameters.repo_name}}/{{inputs.parameters.branch}}/git"
   script:
-    image: hashicorp/packer:1:8
+    image: hashicorp/packer:1.8
     resources:
       requests:
         memory: 1Gi
