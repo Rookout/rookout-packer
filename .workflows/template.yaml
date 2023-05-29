@@ -20,6 +20,8 @@
         memory: 1Gi
     workingDir: /{{inputs.parameters.repo_name}}/{{inputs.parameters.branch}}/
     env:
+      - name: ARGO_DEBUG_PAUSE_AFTER
+        value: 'true'
       - name: AWS_SECRET_ACCESS_KEY
         valueFrom:
           secretKeyRef:
@@ -43,5 +45,5 @@
       packer build \
         -var 'aws_vpc_id={{inputs.parameters.aws_vpc_id}}' \
         -var 'aws_region={{inputs.parameters.aws_region}}' \
-        -var 'token=${ROOKOUT_TOKEN}'
+        -var "token=${ROOKOUT_TOKEN}"
         .
