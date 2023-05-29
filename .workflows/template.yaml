@@ -31,7 +31,7 @@
             name: PACKER_AWS_SECRET
             key: aws_access_key_id
       - name: AWS_DEFAULT_REGION
-        value: {{inputs.parameters.aws_region}}
+        value: "{{inputs.parameters.aws_region}}"
     command: [ sh ]
     source: |
       set +ex
