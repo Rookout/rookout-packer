@@ -24,12 +24,12 @@
         valueFrom:
           secretKeyRef:
             name: packer-aws-secret
-            key: aws_secret_access_key
+            key: aws_secret_key
       - name: AWS_ACCESS_KEY_ID
         valueFrom:
           secretKeyRef:
             name: packer-aws-secret
-            key: aws_access_key_id
+            key: aws_access_key
       - name: AWS_DEFAULT_REGION
         value: "{{inputs.parameters.aws_region}}"
     command: [ sh ]
