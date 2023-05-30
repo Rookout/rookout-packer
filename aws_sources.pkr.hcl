@@ -16,6 +16,7 @@ source "amazon-ebs" "this" {
   region        = var.aws_region
   source_ami    = data.amazon-ami.source-ami.id
   ssh_username  = "ubuntu"
-  ssh_interface = "public_ip"
+  ssh_interface = "session_manager"
   communicator  = "ssh"
+  iam_instance_profile = "SSMInstanceProfile"
 }
