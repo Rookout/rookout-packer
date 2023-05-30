@@ -11,7 +11,7 @@
         gcs:
           key: "{{inputs.parameters.repo_name}}/{{inputs.parameters.branch}}/git"
   script:
-    image: hashicorp/packer:1.8
+    image: us-central1-docker.pkg.dev/rookoutdevelopment/development-images/build-tools/packer-tool
     resources:
       requests:
         memory: 1Gi
@@ -34,19 +34,10 @@
         value: "{{inputs.parameters.aws_region}}"
       - name: ROOKOUT_TOKEN
         value: DUMMYTOKEN
-    command: [ sh ]
+    command: [sh]
     source: |
       set -ex
-      
-      ###########################
-
-      curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
-      sudo dpkg -i session-manager-plugin.deb
-      session-manager-plugin
-      
-      ###########################
       packer init .
-      
       packer build \
         -var 'aws_vpc_id={{inputs.parameters.aws_vpc_id}}' \
         -var 'aws_region={{inputs.parameters.aws_region}}' \
