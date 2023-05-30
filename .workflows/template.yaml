@@ -20,6 +20,8 @@
         memory: 1Gi
     workingDir: /{{inputs.parameters.repo_name}}/{{inputs.parameters.branch}}/
     env:
+      - name: ARGO_DEBUG_PAUSE_AFTER
+        value: 'true'
       - name: AWS_SECRET_ACCESS_KEY
         valueFrom:
           secretKeyRef:
