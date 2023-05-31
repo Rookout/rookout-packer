@@ -18,6 +18,4 @@ source "amazon-ebs" "this" {
   ssh_username  = "ubuntu"
   ssh_interface = "public_ip"
   communicator  = "ssh"
-  # ssh_keypair_name = var.ssh_keypair_name
-  # ssh_private_key_file = var.ssh_private_key_file
 }

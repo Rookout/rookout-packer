@@ -10,10 +10,6 @@
         path: /{{inputs.parameters.repo_name}}/{{inputs.parameters.branch}}
         gcs:
           key: "{{inputs.parameters.repo_name}}/{{inputs.parameters.branch}}/git"
-  volumes:
-    - name: ssh-key
-      secret:
-        secretName: packer-ssh-key
   script:
     image: us-central1-docker.pkg.dev/rookoutdevelopment/development-images/build-tools/packer-tool
     resources:
@@ -23,12 +19,7 @@
       limits:
         memory: 1Gi
     workingDir: /{{inputs.parameters.repo_name}}/{{inputs.parameters.branch}}/
-    volumeMounts:
-      - name: ssh-key
-        mountPath: "/tmp/.ssh/"
     env:
-      - name: ARGO_DEBUG_PAUSE_AFTER
-        value: 'true'
       - name: AWS_SECRET_ACCESS_KEY
         valueFrom:
           secretKeyRef:

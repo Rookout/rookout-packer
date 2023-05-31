@@ -112,18 +112,6 @@ variable "sources" {
   ]
 }
 
-variable "ssh_keypair_name" {
-  type = string
-  default = "packer"
-  description = "AWS Key pair name"
-}
-
-variable "ssh_private_key_file" {
-  type = string
-  default = "/tmp/.ssh/packer-ssh-key"
-  description = "AWS Key pair name"
-}
-
 variable "tests" {
   type = string
   default = "true"
