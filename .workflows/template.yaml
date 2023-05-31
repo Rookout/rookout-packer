@@ -5,6 +5,9 @@
       - name: branch
       - name: aws_vpc_id
       - name: aws_region
+      - name: controller_version
+      - name: dop_version
+      - namae: tests
     artifacts:
       - name: git
         path: /{{inputs.parameters.repo_name}}/{{inputs.parameters.branch}}
@@ -33,7 +36,7 @@
       - name: AWS_DEFAULT_REGION
         value: "{{inputs.parameters.aws_region}}"
       - name: ROOKOUT_TOKEN
-        value: DUMMYTOKEN
+        value: "DUMMY_TOKEN"
     command: [sh]
     source: |
       set -ex
@@ -41,5 +44,7 @@
       packer build \
         -var 'aws_vpc_id={{inputs.parameters.aws_vpc_id}}' \
         -var 'aws_region={{inputs.parameters.aws_region}}' \
-        -var "token=${ROOKOUT_TOKEN}" \
+        -var 'controller_version={{inputs.parameters.controller_version}}' \
+        -var 'dop_version={{inputs.parameters.dop_version}}' \
+        -var 'tests={{inputs.parameters.tests}}' \
         .

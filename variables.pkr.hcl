@@ -19,6 +19,7 @@ variable "linux_distro" {
 variable "token" {
   type        = string
   description = "Rookout Token"
+  default     = "{{env `ROOKOUT_TOKEN`}}"
   sensitive   = true
 }
 
@@ -108,7 +109,7 @@ variable "sources" {
   type = list(string)
   default = [
 //    "sources.vmware-iso.ubuntu",
-    "sources.amazon-ebs.this",
+    "sources.amazon-ebs.rookout-ami",
   ]
 }
 

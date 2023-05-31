@@ -114,7 +114,7 @@ build {
     environment_vars = [
         "TARGET_USER=ubuntu",
         "HOST_KEY=${build.SSHPrivateKey}",
-        "TEST_SPEC=aws",
+        "TEST_SPEC=${source.name}",
         "HOST=${build.Host}"
     ]
     inline = [
@@ -124,7 +124,6 @@ build {
       "echo =======================================================",
       "cd tests/ && rake spec"
     ]
-
   }
 
   post-processor "shell-local" {

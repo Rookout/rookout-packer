@@ -14,17 +14,17 @@ shared_examples 'rookout::secure_ami' do
         end
       end
 
-      describe 'Root user configuration' do
-        # Verify that the root user password has been locked
+    describe 'Root user configuration' do
+    # Verify that the root user password has been locked
         describe user('root') do
-          it { should exist }
-          it { should have_login_shell('/sbin/nologin') }
+            it { should exist }
+            it { should have_login_shell('/sbin/nologin') }
         end
-      
+    
         # Verify that the root account has been disabled
         describe command('getent shadow root') do
-          its(:stdout) { should match(/^root:!:.*$/) }
+            its(:stdout) { should match(/^root:!:.*$/) }
         end
-      end
+    end
 
 end

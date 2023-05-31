@@ -9,7 +9,7 @@ data "amazon-ami" "source-ami" {
   most_recent = true
 }
 
-source "amazon-ebs" "this" {
+source "amazon-ebs" "rookout-ami" {
   ami_name      = local.build_name
   instance_type = var.aws_instance_type
   vpc_id        = var.aws_vpc_id

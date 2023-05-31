@@ -21,5 +21,11 @@
         value: "vpc-7a300a02"
       - name: aws_region
         value: "us-east-1"
+      - name: controller_version
+        value: "latest"
+      - name: dop_version
+        value: "latest"
+      - name: tests
+        value: "true"
   dependencies:
     - git-fetch
