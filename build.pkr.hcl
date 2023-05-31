@@ -1,7 +1,5 @@
 locals {
 
-  token = "$${ROOKOUT_TOKEN}"
-
   controller_image      = "${var.controller_image}:${var.controller_version}"
   controller_token      = "ROOKOUT_TOKEN=$${ROOKOUT_TOKEN}"
   controller_cert_mount = "$${ROOKOUT_CONTROLLER_CERT_PATH}:/var/controller-tls-secrets/"
@@ -39,7 +37,7 @@ build {
   provisioner "file" {
     content = templatefile(("templates/config.tpl"),
       {
-        token = local.token
+        token = var.token
     })
     destination = "/tmp/config"
   }
@@ -104,9 +102,6 @@ build {
 
 
   provisioner "shell" {
-    environment_vars = [
-      "ROOKOUT_TOKEN=${var.token}"
-    ]
     script = "scripts/rookout-startup.sh"
   }
 
