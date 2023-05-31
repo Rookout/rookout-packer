@@ -7,7 +7,7 @@
       - name: aws_region
       - name: controller_version
       - name: dop_version
-      - name: tests
+      - namae: tests
     artifacts:
       - name: git
         path: /{{inputs.parameters.repo_name}}/{{inputs.parameters.branch}}
@@ -36,7 +36,10 @@
       - name: AWS_DEFAULT_REGION
         value: "{{inputs.parameters.aws_region}}"
       - name: ROOKOUT_TOKEN
-        value: "DUMMY_TOKEN"
+        valueFrom:
+          secretKeyRef:
+            name: rookout-token
+            key: token
     command: [sh]
     source: |
       set -ex

@@ -16,12 +16,11 @@ variable "linux_distro" {
   sensitive   = false
 }
 
-variable "token" {
-  type        = string
-  description = "Rookout Token"
-  default     = "{{env `ROOKOUT_TOKEN`}}"
-  sensitive   = true
-}
+# variable "token" {
+#   type        = string
+#   description = "Rookout Token"
+#   sensitive   = true
+# }
 
 variable "server_mode" {
   type      = string

@@ -15,9 +15,9 @@ shared_examples 'rookout::base' do
         it { should be_running }
     end
 
-    # describe command("curl -s -o /dev/null -w '%{response_code}' localhost:7488") do
-    #     its(:stdout) { should eq '200' }
-    # end
+    describe command("curl -s -o /dev/null -w '%{response_code}' localhost:7488") do
+        its(:stdout) { should eq '200' }
+    end
 
     describe command("curl -s -o /dev/null -w '%{response_code}' localhost:8080") do
         its(:stdout) { should eq '200' }
