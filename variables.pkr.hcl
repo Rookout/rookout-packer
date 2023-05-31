@@ -111,3 +111,15 @@ variable "sources" {
     "sources.amazon-ebs.this",
   ]
 }
+
+variable "ssh_keypair_name" {
+  type = string
+  default = "packer"
+  description = "AWS Key pair name"
+}
+
+variable "ssh_private_key_file" {
+  type = string
+  default = ".ssh/packer-ssh-key"
+  description = "AWS Key pair name"
+}
