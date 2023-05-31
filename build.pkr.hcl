@@ -108,7 +108,7 @@ build {
   provisioner "shell-local" {
     environment_vars = [
         "TARGET_USER=ubuntu",
-        "HOST_KEY=${var.ssh_private_key_file}",
+        "HOST_KEY=${build.SSHPrivateKey}",
         "TEST_SPEC=aws",
         "HOST=${build.Host}"
     ]
