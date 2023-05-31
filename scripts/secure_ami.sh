@@ -14,8 +14,5 @@ sudo systemctl reload sshd
 sudo passwd -l root
 # Disable the root account
 sudo usermod -p '!' root
-# Changing root login shel
+# Changing root login shell
 sudo usermod -s /sbin/nologin root
-
-# Remove the SSH host key files
-# sudo shred -u /etc/ssh/*_key /etc/ssh/*_key.pub

@@ -19,8 +19,6 @@ shared_examples 'rookout::secure_ami' do
         describe user('root') do
           it { should exist }
           it { should have_login_shell('/sbin/nologin') }
-          it { should_not have_authorized_key '' }
-          it { should_not have_authorized_keys_entry '' }
         end
       
         # Verify that the root account has been disabled

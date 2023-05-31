@@ -29,9 +29,9 @@ build {
     ]
   }
 
-  # provisioner "shell" {
-  #   script = "scripts/install-docker-${var.linux_distro}.sh"
-  # }
+  provisioner "shell" {
+    script = "scripts/install-docker-${var.linux_distro}.sh"
+  }
 
   provisioner "file" {
     content = templatefile(("templates/config.tpl"),
@@ -92,17 +92,17 @@ build {
     ]
   }
 
-  # provisioner "shell" {
-  #   inline = [
-  #     "sudo docker pull ${local.controller_image}",
-  #     "sudo docker pull ${local.dop_image}"
-  #   ]
-  # }
+  provisioner "shell" {
+    inline = [
+      "sudo docker pull ${local.controller_image}",
+      "sudo docker pull ${local.dop_image}"
+    ]
+  }
 
 
-  # provisioner "shell" {
-  #   script = "scripts/rookout-startup.sh"
-  # }
+  provisioner "shell" {
+    script = "scripts/rookout-startup.sh"
+  }
 
   
   provisioner "shell" {

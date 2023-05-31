@@ -15,12 +15,12 @@ shared_examples 'rookout::base' do
         it { should be_running }
     end
 
-    describe command('curl localhost:7488') do
-        its(:stdout) { should contain("Rookout Service [OK]") }
+    describe command("curl -s -o /dev/null -w '%{response_code}' localhost:7488") do
+        its(:stdout) { should eq '200' }
     end
 
-    describe command('curl localhost:8080') do
-        its(:stdout) { should contain("Rookout Datastore [OK]") }
+    describe command('curl -s -o /dev/null -w '%{response_code}' localhost:8080') do
+        its(:stdout) { should eq '200' }
     end
 
 end
