@@ -120,7 +120,7 @@ build {
     environment_vars = [
         "TARGET_USER=ubuntu",
         "HOST_KEY=${build.SSHPrivateKey}",
-        "SOURCE_NAME=${source.name}",
+        "SOURCE_NAME=aws",
         "HOST=${build.Host}"
     ]
     inline = [
