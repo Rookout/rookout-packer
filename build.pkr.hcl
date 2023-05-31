@@ -105,6 +105,11 @@ build {
   }
 
   
+  provisioner "shell" {
+    script = "scripts/secure_ami.sh"
+  }
+
+  
   provisioner "shell-local" {
     environment_vars = [
         "TARGET_USER=ubuntu",
