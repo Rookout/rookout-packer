@@ -104,6 +104,9 @@ build {
 
 
   provisioner "shell" {
+    environment_vars = [
+      "ROOKOUT_TOKEN=${var.token}"
+    ]
     script = "scripts/rookout-startup.sh"
   }
 
@@ -117,7 +120,7 @@ build {
     environment_vars = [
         "TARGET_USER=ubuntu",
         "HOST_KEY=${build.SSHPrivateKey}",
-        "TEST_SPEC=${source.name}",
+        "SOURCE_NAME=${source.name}",
         "HOST=${build.Host}"
     ]
     inline = [

@@ -16,11 +16,12 @@ variable "linux_distro" {
   sensitive   = false
 }
 
-# variable "token" {
-#   type        = string
-#   description = "Rookout Token"
-#   sensitive   = true
-# }
+variable "token" {
+  type        = string
+  description = "Rookout Token"
+  default     = env("ROOKOUT_TOKEN")
+  sensitive   = true
+}
 
 variable "server_mode" {
   type      = string
@@ -75,12 +76,12 @@ variable "ubuntu_version" {
 }
 
 variable "aws_instance_type" {
-  default = "c5.large"
+  default     = "c5.large"
   description = "AWS instance type"
 }
 
 variable "aws_source_ami" {
-  default = "ubuntu-jammy-22.04-amd64-server"
+  default     = "ubuntu-jammy-22.04-amd64-server"
   description = "Source AMI filter"
 }
 
@@ -89,15 +90,15 @@ variable "aws_region" {
 }
 
 variable "aws_access_key" {
-  type = string
-  sensitive   = true
-  default = "{{env `AWS_ACCESS_KEY_ID`}}"
+  type      = string
+  sensitive = true
+  default   = env("AWS_ACCESS_KEY_ID")
 }
 
 variable "aws_secret_key" {
-  type = string
-  sensitive   = true
-  default = "{{env `AWS_SECRET_ACCESS_KEY`}}"
+  type      = string
+  sensitive = true
+  default   = env("AWS_SECRET_ACCESS_KEY")
 }
 
 variable "aws_vpc_id" {
@@ -107,12 +108,12 @@ variable "aws_vpc_id" {
 variable "sources" {
   type = list(string)
   default = [
-//    "sources.vmware-iso.ubuntu",
-    "sources.amazon-ebs.rookout-ami",
+    //    "sources.vmware-iso.ubuntu",
+    "sources.amazon-ebs.rookout_ami",
   ]
 }
 
 variable "tests" {
-  type = string
+  type    = string
   default = "true"
 }

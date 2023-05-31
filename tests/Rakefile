@@ -1,10 +1,10 @@
 require 'rake'
 require 'rspec/core/rake_task'
 
-test_spec = ENV['TEST_SPEC']
+name = ENV['SOURCE_NAME']
 
-desc "Run serverspec to #{test_spec}"
+desc "Run serverspec to #{name}"
   RSpec::Core::RakeTask.new(:spec) do |t|
-    t.pattern = "spec/#{test_spec}_spec.rb"
+    t.pattern = "spec/#{name}_spec.rb"
   end
 
