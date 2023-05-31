@@ -7,6 +7,6 @@ describe 'Validate token is removed' do
     end
 
     describe command("cat /etc/rookout/config | grep ROOKOUT_TOKEN=dummy_token") do
-        its(:stdout) { should eq 'ROOKOUT_TOKEN=dummy_token' }
+        its(:stdout) { should eq 'ROOKOUT_TOKEN=dummy_token\n' }
     end
 end
