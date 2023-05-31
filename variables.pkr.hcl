@@ -109,7 +109,7 @@ variable "sources" {
   type = list(string)
   default = [
     //    "sources.vmware-iso.ubuntu",
-    "sources.amazon-ebs.rookout_ami",
+    "sources.amazon-ebs.aws",
   ]
 }
 

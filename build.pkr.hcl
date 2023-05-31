@@ -115,7 +115,7 @@ build {
     environment_vars = [
         "TARGET_USER=ubuntu",
         "HOST_KEY=${build.SSHPrivateKey}",
-        "SOURCE_NAME=aws",
+        "SOURCE_NAME=${source.name}",
         "HOST=${build.Host}"
     ]
     inline = [
@@ -126,6 +126,30 @@ build {
       "cd tests/ && rake spec"
     ]
   }
+
+  provisioner "shell" {
+    environment_vars = [
+      "ROOKOUT_TOKEN=${var.token}"
+    ]
+    script = "scripts/cleanup.sh"
+  }
+
+  provisioner "shell-local" {
+    environment_vars = [
+        "TARGET_USER=ubuntu",
+        "HOST_KEY=${build.SSHPrivateKey}",
+        "SOURCE_NAME=cleanup",
+        "HOST=${build.Host}"
+    ]
+    inline = [
+      "if [[ ${var.tests} != \"true\" ]];then exit 0;fi",
+      "echo =======================================================",
+      "echo Running RSpec tests ${source.type}.${source.name} ${var.name}",
+      "echo =======================================================",
+      "cd tests/ && rake spec"
+    ]
+  }
+
 
   post-processor "shell-local" {
     inline = [

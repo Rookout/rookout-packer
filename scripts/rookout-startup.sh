@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 config_directory="/etc/rookout/"
 
 [ -d "$config_directory" ] || sudo mkdir $config_directory
