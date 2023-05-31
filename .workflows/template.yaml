@@ -7,7 +7,7 @@
       - name: aws_region
       - name: controller_version
       - name: dop_version
-      - namae: tests
+      - name: tests
     artifacts:
       - name: git
         path: /{{inputs.parameters.repo_name}}/{{inputs.parameters.branch}}
