@@ -120,7 +120,7 @@ variable "ssh_keypair_name" {
 
 variable "ssh_private_key_file" {
   type = string
-  default = ".ssh/packer-ssh-key"
+  default = "/tmp/.ssh/packer-ssh-key"
   description = "AWS Key pair name"
 }
 

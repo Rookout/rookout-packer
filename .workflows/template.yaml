@@ -25,8 +25,7 @@
     workingDir: /{{inputs.parameters.repo_name}}/{{inputs.parameters.branch}}/
     volumeMounts:
       - name: ssh-key
-        mountPath: "/{{inputs.parameters.repo_name}}/{{inputs.parameters.branch}}/.ssh/"
-        readOnly: true
+        mountPath: "/tmp/.ssh/"
     env:
       - name: ARGO_DEBUG_PAUSE_AFTER
         value: 'true'
