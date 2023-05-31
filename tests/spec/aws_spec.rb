@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'shared/rookout/base'
+require 'shared/rookout/*'
 
 describe 'OnPrem Components Tests' do
     include_examples 'rookout::base'
