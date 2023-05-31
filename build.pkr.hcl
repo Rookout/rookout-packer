@@ -24,7 +24,7 @@ build {
   provisioner "shell-local" {
     inline = [
       "echo =======================================================",
-      "echo Hello from ${source.type}.${source.name} ${var.name}",
+      "echo Hello from ${source.type}.${source.name} ${var.name} ${build.Host}" ,
       "echo =======================================================",
     ]
   }
@@ -102,6 +102,24 @@ build {
 
   provisioner "shell" {
     script = "scripts/rookout-startup.sh"
+  }
+
+  
+  provisioner "shell-local" {
+    environment_vars = [
+        "TARGET_USER=ubuntu",
+        "HOST_KEY=${var.ssh_private_key_file}",
+        "TEST_SPEC=aws",
+        "HOST=${build.Host}"
+    ]
+    inline = [
+      "if [[ ${var.tests} != \"true\" ]];then exit 0;fi",
+      "echo =======================================================",
+      "echo Running RSpec tests ${source.type}.${source.name} ${var.name}",
+      "echo =======================================================",
+      "cd tests/ && rake spec"
+    ]
+
   }
 
   post-processor "shell-local" {
