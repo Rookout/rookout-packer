@@ -16,4 +16,4 @@ sudo passwd -l root
 sudo usermod -p '!' root
 
 # Remove the SSH host key files
-sudo shred -u /etc/ssh/*_key /etc/ssh/*_key.pub
+# sudo shred -u /etc/ssh/*_key /etc/ssh/*_key.pub
