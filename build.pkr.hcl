@@ -152,12 +152,8 @@ build {
 
   provisioner "shell" {
     inline = [
-      "echo === Cleaning Up Public Keys and History ===",
+      "echo === Cleaning Up Public Keys ===",
       "sudo shred -u /etc/ssh/*_key /etc/ssh/*_key.pub",
-      "echo  $HISTFILE",
-      "history -c",
-      "shred -u $HISTFILE",
-      "history -w"
     ]
   }
 
