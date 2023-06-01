@@ -1,3 +1,12 @@
+locals {
+  ami_tags = {
+    Name   = "rookout-hybrid"
+    date = legacy_isotime("2006-01-02")
+    controller_version = var.controller_version
+    datastrore_version = var.dop_version
+    ami_version = var.ami_version
+  }
+}
 
 data "amazon-ami" "source-ami" {
   filters = {
@@ -18,4 +27,14 @@ source "amazon-ebs" "aws" {
   ssh_username  = "ubuntu"
   ssh_interface = "public_ip"
   communicator  = "ssh"
+
+
+  dynamic "tag" {
+    for_each = local.ami_tags
+    content {
+      key                 = tag.key
+      value               = tag.value
+    }
+  }
+  
 }

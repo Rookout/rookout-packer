@@ -8,6 +8,7 @@
       - name: controller_version
       - name: dop_version
       - name: tests
+      - name: ami_version
     artifacts:
       - name: git
         path: /{{inputs.parameters.repo_name}}/{{inputs.parameters.branch}}
@@ -50,4 +51,5 @@
         -var 'controller_version={{inputs.parameters.controller_version}}' \
         -var 'dop_version={{inputs.parameters.dop_version}}' \
         -var 'tests={{inputs.parameters.tests}}' \
+        -var 'ami_version={{inputs.parameters.ami_version}}'
         .

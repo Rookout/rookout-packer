@@ -27,5 +27,7 @@
         value: "latest"
       - name: tests
         value: "true"
+      - name: ami_version
+        value: "0.0.0"
   dependencies:
     - git-fetch
