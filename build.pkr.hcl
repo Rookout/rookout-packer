@@ -154,7 +154,7 @@ build {
     inline = [
       "echo === Cleaning Up Public Keys and History ===",
       "sudo shred -u /etc/ssh/*_key /etc/ssh/*_key.pub",
-      "shred -u ~/.*history"
+      "sudo shred -u ~/.*history"
     ]
   }
 
