@@ -86,6 +86,18 @@ build {
     destination = "/tmp/rookout-data-on-prem.service"
   }
 
+  provisioner "file" {
+    source = "files/scripts/netplan_config.sh"
+    destination = "/tmp/netplan_config.sh"
+  }
+
+  provisioner "shell" {
+    inline = [
+      "sudo mv /tmp/netplan_config.sh $HOME",
+      "sudo chmod +x $HOME/netplan_config.sh",
+    ]
+  }
+
   provisioner "shell" {
     inline = [
       "sudo mkdir -p ${local.controller_cert_path}",
