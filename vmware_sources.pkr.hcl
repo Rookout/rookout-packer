@@ -1,8 +1,3 @@
-locals {
-  uuid       = substr(uuidv4(), 0, 8)
-  date       = legacy_isotime("2006-01-02")
-  build_name = "${var.name}-${var.linux_distro}-${local.date}-${local.uuid}"
-}
 
 // The boot_command is voodoo, i got it "worked on my machine" with blood, 
 // if it not work for you, use documentation for reference https://developer.hashicorp.com/packer/plugins/builders/vmware/iso#boot-configuration

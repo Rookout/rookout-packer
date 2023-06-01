@@ -1,4 +1,5 @@
 locals {
+
   controller_image      = "${var.controller_image}:${var.controller_version}"
   controller_token      = "ROOKOUT_TOKEN=$${ROOKOUT_TOKEN}"
   controller_cert_mount = "$${ROOKOUT_CONTROLLER_CERT_PATH}:/var/controller-tls-secrets/"
@@ -8,20 +9,23 @@ locals {
   dop_token      = "ROOKOUT_DOP_LOGGING_TOKEN=$${ROOKOUT_TOKEN}"
   dop_cert_mount = "$${ROOKOUT_DOP_CERT_PATH}:/var/rookout/"
   dop_cert_path  = "/etc/rookout/data-onprem/certs"
+
+  uuid       = substr(uuidv4(), 0, 8)
+  date       = legacy_isotime("2006-01-02")
+  build_name = "${var.name}-${var.linux_distro}-${local.date}-${local.uuid}"
+
 }
 
 build {
 
   name = var.name
 
-  sources = [
-    "sources.vmware-iso.ubuntu",
-  ]
+  sources = var.sources
 
   provisioner "shell-local" {
     inline = [
       "echo =======================================================",
-      "echo Hello from ${source.type}.${source.name} ${var.name}",
+      "echo Hello from ${source.type}.${source.name} ${var.name} ${build.Host}" ,
       "echo =======================================================",
     ]
   }
@@ -100,6 +104,59 @@ build {
   provisioner "shell" {
     script = "scripts/rookout-startup.sh"
   }
+
+  
+  provisioner "shell" {
+    script = "scripts/secure_ami.sh"
+  }
+
+  
+  provisioner "shell-local" {
+    environment_vars = [
+        "TARGET_USER=ubuntu",
+        "HOST_KEY=${build.SSHPrivateKey}",
+        "SPEC_NAME=${source.name}",
+        "HOST=${build.Host}"
+    ]
+    inline = [
+      "if [[ ${var.tests} != \"true\" ]];then exit 0;fi",
+      "echo =======================================================",
+      "echo Running RSpec tests ${source.type}.${source.name} ${var.name}",
+      "echo =======================================================",
+      "cd tests/ && rake spec"
+    ]
+  }
+
+  provisioner "shell" {
+    environment_vars = [
+      "ROOKOUT_TOKEN=${var.token}"
+    ]
+    script = "scripts/cleanup.sh"
+  }
+
+  provisioner "shell-local" {
+    environment_vars = [
+        "TARGET_USER=ubuntu",
+        "HOST_KEY=${build.SSHPrivateKey}",
+        "SPEC_NAME=cleanup",
+        "HOST=${build.Host}"
+    ]
+    inline = [
+      "if [[ ${var.tests} != \"true\" ]];then exit 0;fi",
+      "echo =======================================================",
+      "echo Running RSpec tests ${source.type}.${source.name} ${var.name}",
+      "echo =======================================================",
+      "cd tests/ && rake spec"
+    ]
+  }
+
+  provisioner "shell" {
+    inline = [
+      "echo === Cleaning Up Public Keys ===",
+      "sudo shred -u /etc/ssh/*_key /etc/ssh/*_key.pub",
+    ]
+  }
+
 
   post-processor "shell-local" {
     inline = [

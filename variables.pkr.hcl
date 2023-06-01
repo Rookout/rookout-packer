@@ -19,6 +19,7 @@ variable "linux_distro" {
 variable "token" {
   type        = string
   description = "Rookout Token"
+  default     = env("ROOKOUT_TOKEN")
   sensitive   = true
 }
 
@@ -74,3 +75,51 @@ variable "ubuntu_version" {
   sensitive   = false
 }
 
+variable "aws_instance_type" {
+  default     = "c5.large"
+  description = "AWS instance type"
+}
+
+variable "aws_source_ami" {
+  default     = "ubuntu-jammy-22.04-amd64-server"
+  description = "Source AMI filter"
+}
+
+variable "aws_region" {
+  default = "us-east-1"
+}
+
+variable "aws_access_key" {
+  type      = string
+  sensitive = true
+  default   = env("AWS_ACCESS_KEY_ID")
+}
+
+variable "aws_secret_key" {
+  type      = string
+  sensitive = true
+  default   = env("AWS_SECRET_ACCESS_KEY")
+}
+
+variable "aws_vpc_id" {
+  type = string
+}
+
+variable "sources" {
+  type = list(string)
+  default = [
+    //    "sources.vmware-iso.ubuntu",
+    "sources.amazon-ebs.aws",
+  ]
+}
+
+variable "tests" {
+  type    = string
+  default = "true"
+}
+
+variable "ami_version" {
+  type = string
+  default = "0.0.0"
+  description = "AMI Semantic version"
+}
