@@ -51,5 +51,5 @@
         -var 'controller_version={{inputs.parameters.controller_version}}' \
         -var 'dop_version={{inputs.parameters.dop_version}}' \
         -var 'tests={{inputs.parameters.tests}}' \
-        -var 'ami_version={{inputs.parameters.ami_version}}'
+        -var 'ami_version={{inputs.parameters.ami_version}}' \
         .
