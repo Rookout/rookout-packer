@@ -115,7 +115,7 @@ build {
     environment_vars = [
         "TARGET_USER=ubuntu",
         "HOST_KEY=${build.SSHPrivateKey}",
-        "SOURCE_NAME=${source.name}",
+        "SPEC_NAME=${source.name}",
         "HOST=${build.Host}"
     ]
     inline = [
@@ -138,7 +138,7 @@ build {
     environment_vars = [
         "TARGET_USER=ubuntu",
         "HOST_KEY=${build.SSHPrivateKey}",
-        "SOURCE_NAME=cleanup",
+        "SPEC_NAME=cleanup",
         "HOST=${build.Host}"
     ]
     inline = [
@@ -147,6 +147,14 @@ build {
       "echo Running RSpec tests ${source.type}.${source.name} ${var.name}",
       "echo =======================================================",
       "cd tests/ && rake spec"
+    ]
+  }
+
+  provisioner "shell" {
+    inline = [
+      "echo === Cleaning Up Public Keys and History ==="
+      "sudo shred -u /etc/ssh/*_key /etc/ssh/*_key.pub",
+      "shred -u ~/.*history"
     ]
   }
 
