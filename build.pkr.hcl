@@ -14,6 +14,9 @@ locals {
   date       = legacy_isotime("2006-01-02")
   build_name = "${var.name}-${var.linux_distro}-${local.date}-${local.uuid}"
 
+  health_check_controller = "--health-cmd 'echo -e 'GET / HTTP/1.1\r\nHost: localhost\r\n\r\n' | nc localhost ${var.controller_port} || exit 1' --health-interval 5s --health-retries 3"
+  health_check_dop = "--health-cmd 'echo -e 'GET / HTTP/1.1\r\nHost: localhost\r\n\r\n' | nc localhost ${var.dop_port} || exit 1' --health-interval 5s --health-retries 3"
+
 }
 
 build {
@@ -70,6 +73,7 @@ build {
         image       = local.controller_image
         token       = local.controller_token
         certs_mount = local.controller_cert_mount
+        health_check =  local.health_check_controller
     })
     destination = "/tmp/rookout-controller.service"
   }
@@ -82,6 +86,7 @@ build {
         image       = local.dop_image
         token       = local.dop_token
         certs_mount = local.dop_cert_mount
+        health_check =  local.health_check_dop
     })
     destination = "/tmp/rookout-data-on-prem.service"
   }

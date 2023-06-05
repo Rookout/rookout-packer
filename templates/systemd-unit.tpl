@@ -8,7 +8,9 @@ Restart=always
 EnvironmentFile=/etc/rookout/config
 EnvironmentFile=/etc/rookout/${name}/env
 ExecStartPre=-/usr/bin/docker rm rookout-${name}
-ExecStart=/usr/bin/docker run --network host \
+ExecStart=/usr/bin/docker run \
+    ${health_check} \
+    --network host \
     -v ${certs_mount} \
     --env-file /etc/rookout/${name}/env \
     -e ${token} \
