@@ -93,6 +93,7 @@ build {
 
   provisioner "shell" {
     inline = [
+      "cat /tmp/rookout-data-on-prem.service",
       "sudo mkdir -p ${local.controller_cert_path}",
       "sudo mkdir -p ${local.dop_cert_path}",
     ]
