@@ -25,7 +25,7 @@ build {
   provisioner "shell-local" {
     inline = [
       "echo =======================================================",
-      "echo Hello from ${source.type}.${source.name} ${var.name} ${build.Host}" ,
+      "echo Hello from ${source.type}.${source.name} ${var.name} ${build.Host}",
       "echo =======================================================",
     ]
   }
@@ -70,6 +70,7 @@ build {
         image       = local.controller_image
         token       = local.controller_token
         certs_mount = local.controller_cert_mount
+        port        = var.controller_port
     })
     destination = "/tmp/rookout-controller.service"
   }
@@ -82,6 +83,7 @@ build {
         image       = local.dop_image
         token       = local.dop_token
         certs_mount = local.dop_cert_mount
+        port        = var.dop_port
     })
     destination = "/tmp/rookout-data-on-prem.service"
   }
@@ -105,18 +107,18 @@ build {
     script = "scripts/rookout-startup.sh"
   }
 
-  
+
   provisioner "shell" {
     script = "scripts/secure_ami.sh"
   }
 
-  
+
   provisioner "shell-local" {
     environment_vars = [
-        "TARGET_USER=ubuntu",
-        "HOST_KEY=${build.SSHPrivateKey}",
-        "SPEC_NAME=${source.name}",
-        "HOST=${build.Host}"
+      "TARGET_USER=ubuntu",
+      "HOST_KEY=${build.SSHPrivateKey}",
+      "SPEC_NAME=${source.name}",
+      "HOST=${build.Host}"
     ]
     inline = [
       "if [[ ${var.tests} != \"true\" ]];then exit 0;fi",
@@ -136,10 +138,10 @@ build {
 
   provisioner "shell-local" {
     environment_vars = [
-        "TARGET_USER=ubuntu",
-        "HOST_KEY=${build.SSHPrivateKey}",
-        "SPEC_NAME=cleanup",
-        "HOST=${build.Host}"
+      "TARGET_USER=ubuntu",
+      "HOST_KEY=${build.SSHPrivateKey}",
+      "SPEC_NAME=cleanup",
+      "HOST=${build.Host}"
     ]
     inline = [
       "if [[ ${var.tests} != \"true\" ]];then exit 0;fi",
