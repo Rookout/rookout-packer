@@ -5,7 +5,7 @@ shared_examples 'rookout::secure_ami' do
         describe file('/etc/ssh/sshd_config') do
           it { should exist }
           it { should be_file }
-          it { should contain('PermitRootLogin prohibit-password') }
+          it { should contain('PermitRootLogin without-password') }
         end
       
         # Verify that the SSH service has been reloaded successfully
