@@ -12,10 +12,10 @@ source "vmware-iso" "ubuntu" {
   ssh_timeout            = "30m"
   ssh_handshake_attempts = "100"
   shutdown_command       = "echo 'packerubuntu' | sudo -S shutdown -P now"
-  memory         = 4096
-  cores          = 2
-  http_directory = "http"
-  boot_wait      = "5s"
+  memory                 = 4096
+  cores                  = 2
+  http_directory         = "http"
+  boot_wait              = "5s"
   boot_command = [
     "c<wait>",
     "<esc><wait>",

@@ -6,7 +6,7 @@ packer {
     }
     amazon = {
       version = ">= 1.2.5"
-      source = "github.com/hashicorp/amazon"
+      source  = "github.com/hashicorp/amazon"
     }
   }
 }

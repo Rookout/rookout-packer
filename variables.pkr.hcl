@@ -119,7 +119,7 @@ variable "tests" {
 }
 
 variable "ami_version" {
-  type = string
-  default = "0.0.0"
+  type        = string
+  default     = "0.0.0"
   description = "AMI Semantic version"
 }

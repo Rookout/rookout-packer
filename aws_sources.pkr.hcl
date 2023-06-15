@@ -1,10 +1,10 @@
 locals {
   ami_tags = {
-    Name   = "rookout-hybrid"
-    date = legacy_isotime("2006-01-02")
+    Name               = "rookout-hybrid"
+    date               = legacy_isotime("2006-01-02")
     controller_version = var.controller_version
     datastrore_version = var.dop_version
-    ami_version = var.ami_version
+    ami_version        = var.ami_version
   }
 }
 
@@ -27,14 +27,19 @@ source "amazon-ebs" "aws" {
   ssh_username  = "ubuntu"
   ssh_interface = "public_ip"
   communicator  = "ssh"
-
+  launch_block_device_mappings {
+    device_name           = "/dev/sda1"
+    volume_size           = 40
+    volume_type           = "gp2"
+    delete_on_termination = true
+  }
 
   dynamic "tag" {
     for_each = local.ami_tags
     content {
-      key                 = tag.key
-      value               = tag.value
+      key   = tag.key
+      value = tag.value
     }
   }
-  
+
 }
