@@ -156,7 +156,7 @@ build {
     inline = [
       "echo === Cleaning Up Public Keys ===",
       "sudo shred -u /etc/ssh/*_key /etc/ssh/*_key.pub",
-      "sudo find / -name 'authorized_keys' -exec rm {} \;",
+      "sudo find / -name 'authorized_keys' -print0 | sudo xargs -0 rm",
     ]
   }
 
