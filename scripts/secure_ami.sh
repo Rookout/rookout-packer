@@ -6,7 +6,7 @@
 set -e
 
 # Edit the SSH server configuration file
-sudo sed -i 's/^#PermitRootLogin.*/PermitRootLogin without-password/' /etc/ssh/sshd_config
+sudo sed -i 's/^#PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
 # Reload the SSH service
 sudo systemctl reload sshd
 
