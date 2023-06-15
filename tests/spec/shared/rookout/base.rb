@@ -30,7 +30,7 @@ shared_examples 'rookout::base' do
     end
 
     # Assert the expected status
-    describe command("docker inspect --format='{{json .State.Health.Status}}' rookout-controller | tr -d '\"'") do
+    describe command("docker inspect --format='{{json .State.Health.Status}}' rookout-controller | tr -d '\"'").stdout.chomp do
         its(:stdout) { should eq expected_status }
     end
 
@@ -57,7 +57,7 @@ shared_examples 'rookout::base' do
     end
 
     # Assert the expected status
-    describe command("docker inspect --format='{{json .State.Health.Status}}' rookout-data-onprem | tr -d '\"'") do
+    describe command("docker inspect --format='{{json .State.Health.Status}}' rookout-data-onprem | tr -d '\"'").stdout.chomp do
         its(:stdout) { should eq expected_status }
     end
 
